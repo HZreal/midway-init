@@ -1,3 +1,3 @@
-export const jwtUrlExcludeList = ['/', '/sys/login', '/test/t1'];
+export const jwtUrlExcludeList = ['/', '/sys/login'];
 
 export const secretOrPrivateKey = 'qwertyuiop1234567890';

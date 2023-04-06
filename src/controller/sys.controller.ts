@@ -4,7 +4,7 @@ import { Controller, Get, Post } from '@midwayjs/core';
 export class IndexController {
     @Get('/')
     async home(): Promise<string> {
-        return 'Hello Midwayjs!';
+        return 'Hello Midway!';
     }
 }
 
