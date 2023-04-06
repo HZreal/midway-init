@@ -8,6 +8,13 @@ export default {
         port: 7001,
     },
 
+    // cors
+    cors: {
+        origin: '*',
+        allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+        // credentials: false,
+    },
+
     // jwt
     jwt: {
         secret: 'qwertyuiop12345678', // fs.readFileSync('xxxxx.key')
