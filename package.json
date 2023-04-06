@@ -5,7 +5,9 @@
   "private": true,
   "dependencies": {
     "@midwayjs/bootstrap": "^3.0.0",
+    "@midwayjs/bull": "^3.11.3",
     "@midwayjs/core": "^3.0.0",
+    "@midwayjs/cron": "^3.11.3",
     "@midwayjs/cross-domain": "^3.11.3",
     "@midwayjs/decorator": "^3.0.0",
     "@midwayjs/info": "^3.0.0",
