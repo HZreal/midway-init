@@ -5,16 +5,18 @@ import * as info from '@midwayjs/info';
 import { join } from 'path';
 import * as swagger from '@midwayjs/swagger';
 import * as jwt from '@midwayjs/jwt';
+import * as orm from '@midwayjs/typeorm';
+import { ReportMiddleware } from './middleware/report.middleware';
+import { JwtMiddleware } from './middleware/jwt.middleware';
 
 // import { DefaultErrorFilter } from './filter/default.filter';
 // import { NotFoundFilter } from './filter/notfound.filter';
-import { ReportMiddleware } from './middleware/report.middleware';
-import { JwtMiddleware } from './middleware/jwt.middleware';
 
 @Configuration({
     imports: [
         koa,
         validate,
+        orm,
         {
             component: info,
             enabledEnvironment: ['local'],
