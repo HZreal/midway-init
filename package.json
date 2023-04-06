@@ -8,6 +8,7 @@
     "@midwayjs/core": "^3.0.0",
     "@midwayjs/decorator": "^3.0.0",
     "@midwayjs/info": "^3.0.0",
+    "@midwayjs/jwt": "^3.11.3",
     "@midwayjs/koa": "^3.0.0",
     "@midwayjs/logger": "^2.14.0",
     "@midwayjs/swagger": "^3.11.3",
