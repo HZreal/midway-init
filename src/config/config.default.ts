@@ -43,4 +43,50 @@ export default {
             },
         },
     },
+
+    // redis
+    redis: {
+        // 单客户端配置
+        client: {
+            port: 6379, // Redis port
+            host: '192.168.1.7', // Redis host
+            // password: "auth",
+            db: 15,
+        },
+
+        // Sentinel 配置
+        // client: {
+        //     sentinels: [
+        //         {
+        //             // Sentinel instances
+        //             port: 26379, // Sentinel port
+        //             host: '127.0.0.1', // Sentinel host
+        //         },
+        //     ],
+        //     name: 'mymaster', // Master name
+        //     password: 'auth',
+        //     db: 0,
+        // },
+
+        // Cluster 模式配置，需要配置多个
+        // Cluster Redis
+        // client: {
+        //     cluster: true,
+        //     nodes: [
+        //         {
+        //             host: 'host',
+        //             port: 'port',
+        //         },
+        //         {
+        //             host: 'host',
+        //             port: 'port',
+        //         },
+        //     ],
+        //     redisOptions: {
+        //         family: '',
+        //         password: 'xxxx',
+        //         db: 'xxx',
+        //     },
+        // },
+    },
 } as MidwayConfig;

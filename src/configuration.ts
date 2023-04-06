@@ -7,6 +7,7 @@ import * as swagger from '@midwayjs/swagger';
 import * as jwt from '@midwayjs/jwt';
 import * as orm from '@midwayjs/typeorm';
 import * as crossDomain from '@midwayjs/cross-domain';
+import * as redis from '@midwayjs/redis';
 
 import { ReportMiddleware } from './middleware/report.middleware';
 import { JwtMiddleware } from './middleware/jwt.middleware';
@@ -20,6 +21,7 @@ import { JwtMiddleware } from './middleware/jwt.middleware';
         validate,
         crossDomain,
         orm,
+        redis,
         {
             component: info,
             enabledEnvironment: ['local'],
