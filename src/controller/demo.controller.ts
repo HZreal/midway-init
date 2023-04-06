@@ -35,6 +35,6 @@ export class DemoController {
         // 应用级别的日志记录
         this.appLogger.info('');
 
-        return 'for logger test ';
+        return 'for logger demo ';
     }
 }
