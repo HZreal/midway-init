@@ -12,9 +12,13 @@ import * as redis from '@midwayjs/redis';
 // import * as cron from '@midwayjs/cron';
 import { ReportMiddleware } from './middleware/report.middleware';
 import { JwtMiddleware } from './middleware/jwt.middleware';
-
-// import { DefaultErrorFilter } from './filter/default.filter';
-// import { NotFoundFilter } from './filter/notfound.filter';
+import {
+    BadRequestErrorHandler,
+    ForbiddenErrorHandler,
+    NotFoundErrorHandler,
+    UnauthorizedErrorHandler,
+    ValidationErrorErrorHandler,
+} from './common/exceptionHandler';
 
 @Configuration({
     imports: [
@@ -53,6 +57,12 @@ export class ContainerLifeCycle {
         // this.app.getMiddleware().insertAfter(someMiddleware, 'jwt');
 
         // add filter
-        // this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
+        this.app.useFilter([
+            BadRequestErrorHandler,
+            UnauthorizedErrorHandler,
+            ForbiddenErrorHandler,
+            NotFoundErrorHandler,
+            ValidationErrorErrorHandler,
+        ]);
     }
 }
