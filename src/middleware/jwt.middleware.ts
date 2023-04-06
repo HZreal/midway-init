@@ -87,6 +87,11 @@ export class JwtMiddleware {
         // const ignore = ctx.path.indexOf("/sys/login") !== -1;
         // return !ignore
 
+        // 忽略 /demo/* 和 /test/* 的路由
+        if (ctx.path.includes('/demo') || ctx.path.includes('/test')) {
+            return false;
+        }
+
         return !jwtUrlExcludeList.includes(ctx.path);
     }
 }

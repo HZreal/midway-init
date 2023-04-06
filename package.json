@@ -17,7 +17,7 @@
     "@midwayjs/redis": "^3.11.3",
     "@midwayjs/swagger": "^3.11.3",
     "@midwayjs/typeorm": "^3.11.3",
-    "@midwayjs/validate": "^3.0.0",
+    "@midwayjs/validate": "^3.11.3",
     "pg": "^8.10.0",
     "typeorm": "^0.3.12"
   },
