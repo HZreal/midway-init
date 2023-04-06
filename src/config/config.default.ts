@@ -21,6 +21,36 @@ export default {
         expiresIn: '7 days', // https://github.com/vercel/ms
     },
 
+    // 日志
+    midwayLogger: {
+        // default: {
+        //     // 默认全局配置
+        // },
+        clients: {
+            // coreLogger: {
+            //     // 框架、组件
+            // },
+            // appLogger: {
+            //     // 应用
+            // },
+
+            // 自定义日志
+            httpLogger: {
+                fileLogName: 'http.log',
+                enableFile: true,
+                enableConsole: true,
+                format: info => {
+                    return `${info.timestamp} ${info.LEVEL} ${info.pid} ${info.labelText}${info.message}`;
+                },
+                // ...
+            },
+            mqLogger: {
+                fileLogName: 'mq.log',
+                // ...
+            },
+        },
+    },
+
     // orm
     typeorm: {
         dataSource: {
