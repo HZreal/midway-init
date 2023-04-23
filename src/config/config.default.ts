@@ -120,6 +120,13 @@ export default {
         // },
     },
 
+    // rabbitmq
+    rabbitmq: {
+        // 'amqp://账户:密码@IP:端口号/转移后的vhost'
+        // 原 vhost: /dev . 这个转义后: %2Fdev
+        url: 'amqp://zeng:123456@192.168.1.7:5672/%2Fhuang',
+    },
+
     // 分布式任务
     // bull: {
     //     // 默认的队列配置

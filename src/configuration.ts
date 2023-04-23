@@ -8,6 +8,7 @@ import * as jwt from '@midwayjs/jwt';
 import * as orm from '@midwayjs/typeorm';
 import * as crossDomain from '@midwayjs/cross-domain';
 import * as redis from '@midwayjs/redis';
+import * as rabbitmq from '@midwayjs/rabbitmq';
 // import * as bull from '@midwayjs/bull';
 // import * as cron from '@midwayjs/cron';
 import { ReportMiddleware } from './middleware/report.middleware';
@@ -27,6 +28,7 @@ import {
         crossDomain,
         orm,
         redis,
+        rabbitmq,
         {
             component: info,
             enabledEnvironment: ['local'],
