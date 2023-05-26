@@ -4,15 +4,15 @@ import * as validate from '@midwayjs/validate';
 import * as info from '@midwayjs/info';
 import { join } from 'path';
 import * as swagger from '@midwayjs/swagger';
-import * as jwt from '@midwayjs/jwt';
 import * as orm from '@midwayjs/typeorm';
 import * as crossDomain from '@midwayjs/cross-domain';
 import * as redis from '@midwayjs/redis';
 import * as rabbitmq from '@midwayjs/rabbitmq';
 // import * as bull from '@midwayjs/bull';
 // import * as cron from '@midwayjs/cron';
+// import * as jwt from '@midwayjs/jwt';
 import { ReportMiddleware } from './middleware/report.middleware';
-import { JwtMiddleware } from './middleware/jwt.middleware';
+// import { JwtMiddleware } from './middleware/jwt.middleware';
 import {
     BadRequestErrorHandler,
     ForbiddenErrorHandler,
@@ -37,7 +37,7 @@ import {
             component: swagger,
             // enabledEnvironment: ['local'],
         },
-        jwt,
+        // jwt,
         // 分布式任务管理系统，必须依赖 redis
         // https://midwayjs.org/docs/extensions/bull
         // bull,
@@ -54,7 +54,8 @@ export class ContainerLifeCycle {
 
     async onReady() {
         // 注册中间件
-        this.app.useMiddleware([JwtMiddleware, ReportMiddleware]);
+        this.app.useMiddleware([ReportMiddleware]);
+        // this.app.useMiddleware([JwtMiddleware, ReportMiddleware]);
         // 把中间件添加到名为 jwt 的中间件之后
         // this.app.getMiddleware().insertAfter(someMiddleware, 'jwt');
 
