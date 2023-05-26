@@ -1,14 +1,16 @@
 import { Provide } from '@midwayjs/core';
-import { IUserOptions } from '../interface';
+import { BaseService } from '../common/baseService';
+import { InjectEntityModel } from '@midwayjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserModel } from '../model/user.model';
 
 @Provide()
-export class UserService {
-    async getUser(options: IUserOptions) {
-        return {
-            uid: options.uid,
-            username: 'mockedName',
-            phone: '12345678901',
-            email: 'xxx.xxx@xxx.com',
-        };
+export class UserService extends BaseService {
+    @InjectEntityModel(UserModel)
+    model: Repository<UserModel>;
+
+    async getUser() {
+        const user = await this.findOneById(1);
+        console.log('user  ---->  ', user);
     }
 }
