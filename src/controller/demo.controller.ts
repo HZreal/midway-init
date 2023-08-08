@@ -127,6 +127,9 @@ export class DemoController {
         return { code: 0 };
     }
 
+    /**
+     * 文件下载（全量）
+     */
     @Get('/getStream')
     async entireStream() {
         const videoPath = path.join(this.baseDir, 'public', '348.MP4');
@@ -139,6 +142,9 @@ export class DemoController {
         return videoStream;
     }
 
+    /**
+     * 文件下载（间断传输）
+     */
     @Get('/getStreamInRange')
     async stream() {
         const range = this.ctx.get('range');
