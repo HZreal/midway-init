@@ -1,12 +1,19 @@
 import { MidwayConfig } from '@midwayjs/core';
 import { pgModelDeclareEnum } from '../constant/modelDeclare.const';
+// import { uploadWhiteList } from '@midwayjs/upload';
+import { join } from 'path';
+import { tmpdir } from 'os';
+import * as path from 'path';
 
 export default {
     // use for cookie sign key, should change to your own and keep security
     keys: '1680592368107_8795',
     koa: {
-        port: 7321,
+        port: 7001,
     },
+
+    // 根目录
+    baseDir: path.resolve('./'),
 
     // cors
     cors: {
@@ -19,6 +26,25 @@ export default {
     jwt: {
         secret: 'qwertyuiop12345678', // fs.readFileSync('xxxxx.key')
         expiresIn: '7 days', // https://github.com/vercel/ms
+    },
+
+    // ...
+    upload: {
+        // mode: UploadMode, 默认为file，即上传到服务器临时目录，可以配置为 stream
+        mode: 'stream',
+        // fileSize: string, 最大上传文件大小，默认为 10mb
+        fileSize: '500mb',
+        // whitelist: string[]，文件扩展名白名单
+        // whitelist: uploadWhiteList.filter(ext => ext !== '.zip'),
+        whitelist: ['.zip'],
+        // tmpdir: string，上传的文件临时存储路径
+        tmpdir: join(tmpdir(), 'midway-upload-files'),
+        // cleanTimeout: number，上传的文件在临时目录中多久之后自动删除，默认为 5 分钟
+        // cleanTimeout: 5 * 60 * 1000,
+        // base64: boolean，设置原始body是否是base64格式，默认为false，一般用于腾讯云的兼容
+        base64: false,
+        // 仅在匹配路径到 /api/upload 的时候去解析 body 中的文件信息
+        // match: /\/api\/upload/,
     },
 
     // 日志

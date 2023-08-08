@@ -6,6 +6,7 @@ import { join } from 'path';
 import * as swagger from '@midwayjs/swagger';
 import * as orm from '@midwayjs/typeorm';
 import * as crossDomain from '@midwayjs/cross-domain';
+import * as upload from '@midwayjs/upload';
 import * as redis from '@midwayjs/redis';
 import * as rabbitmq from '@midwayjs/rabbitmq';
 // import * as bull from '@midwayjs/bull';
@@ -27,6 +28,7 @@ import {
         validate,
         crossDomain,
         orm,
+        upload,
         redis,
         rabbitmq,
         {
