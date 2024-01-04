@@ -1,0 +1,16 @@
+{
+    "apps": [
+        {
+            "name": "project-name",
+            "namespace": "project-name",
+            "script": "./bootstrap.js",
+            "error_file": "~/logs/pm2logs/project-name/err.log",
+            "out_file": "~/logs/pm2logs/project-name/out.log",
+            "merge_logs": true,
+            "env": {
+                "NODE_ENV": "dev",
+                "MIDWAY_SERVER_ENV": "dev"
+            }
+        }
+    ]
+}

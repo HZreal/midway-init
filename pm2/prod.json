@@ -1,0 +1,14 @@
+{
+    "apps": [
+        {
+            "name": "project-name",
+            "namespace": "project-name",
+            "script": "./bootstrap.js",
+            "merge_logs": true,
+            "env": {
+                "NODE_ENV": "prod",
+                "MIDWAY_SERVER_ENV": "prod"
+            }
+        }
+    ]
+}
