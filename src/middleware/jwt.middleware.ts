@@ -1,13 +1,16 @@
 import { Inject, Middleware } from '@midwayjs/decorator';
 import { Context, NextFunction } from '@midwayjs/koa';
-import { httpError } from '@midwayjs/core';
+import { Config, httpError } from '@midwayjs/core';
 import { JwtService } from '@midwayjs/jwt';
-import { jwtUrlExcludeList, secretOrPrivateKey } from '../constant/jwt.const';
+import { jwtUrlExcludeList } from '../constant/jwt.const';
 
 @Middleware()
 export class JwtMiddleware {
     @Inject()
     jwtService: JwtService;
+
+    @Config('jwt')
+    jwt;
 
     resolve() {
         return async (ctx: Context, next: NextFunction) => {
@@ -30,7 +33,7 @@ export class JwtMiddleware {
                     // jwt.verify方法验证token是否有效
                     const decoded = await this.jwtService.verify(
                         token,
-                        secretOrPrivateKey,
+                        this.jwt?.secret,
                         {
                             complete: true,
                         }
