@@ -166,4 +166,16 @@ export default {
     //         // },
     //     },
     // },
+
+    // mqtt
+    mqtt: {
+        host: '192.168.1.7',
+        port: 1883,
+        clientId: `mqtt_${Math.random().toString(16).slice(3)}`,
+        clean: true,
+        connectTimeout: 4000,
+        username: 'giszone',
+        password: '0qJ7LauxxRKmFQad',
+        reconnectPeriod: 1000,
+    },
 } as MidwayConfig;
