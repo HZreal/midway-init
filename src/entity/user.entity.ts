@@ -6,7 +6,7 @@ import { Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Entity } from 'typeorm';
 
 @Entity('tb_user', { schema: 'public' })
-export class UserModel {
+export class UserEntity {
     @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
     id?: number;
 

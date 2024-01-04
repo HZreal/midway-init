@@ -1,5 +1,5 @@
 import { Rule, RuleType } from '@midwayjs/validate';
-import { pageSizeEnum } from '../constant/paginate.const';
+import { pageSizeEnum } from '../../constant/paginate.const';
 import { ApiProperty } from '@midwayjs/swagger';
 
 export class pageSortDTO {
