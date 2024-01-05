@@ -13,4 +13,13 @@ export class UserService extends BaseService {
         const user = await this.findOneById(1);
         console.log('user  ---->  ', user);
     }
+
+    async createUser(form) {
+        //
+    }
+
+    async checkPassword(form) {
+        //
+        return { id: 1, username: '', isSuper: true };
+    }
 }

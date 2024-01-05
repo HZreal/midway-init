@@ -12,7 +12,6 @@ export class UserController {
 
     @Get('/get_user')
     async getUser(@Query('uid') uid) {
-        const user = await this.userService.getUser();
-        return { success: true, message: 'OK', data: user };
+        return { success: true, message: 'OK', data: {} };
     }
 }
