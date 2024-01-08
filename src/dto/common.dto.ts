@@ -34,7 +34,7 @@ export class pageSortDTO {
             .pattern(/[a-zA-Z0-9]+:(a|de)sc/)
             .max(64)
     )
-    @ApiProperty({ example: 'field:asc' })
+    @ApiProperty({ example: 'id:asc' })
     sort?: string;
 }
 
