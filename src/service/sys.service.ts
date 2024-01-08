@@ -15,7 +15,7 @@ export class SysService {
     userService: UserService;
 
     async register(form) {
-        await this.userService.createUser(form);
+        await this.userService.createEntity(form);
     }
 
     async login(form) {
