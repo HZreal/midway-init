@@ -5,7 +5,7 @@ import { httpError, MidwayHttpError } from '@midwayjs/core';
 import { MidwayValidationError } from '@midwayjs/validate';
 import { Context } from '@midwayjs/koa';
 import { Catch } from '@midwayjs/decorator';
-import { failed } from './response';
+import { failed } from '../common/response';
 import { UsernameOrPasswordException } from './customException';
 
 // 400
