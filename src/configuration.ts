@@ -16,12 +16,16 @@ import { ReportMiddleware } from './middleware/report.middleware';
 // import { JwtMiddleware } from './middleware/jwt.middleware';
 import {
     BadRequestErrorHandler,
+    DefaultErrorFilter,
     ForbiddenErrorHandler,
     NotFoundErrorHandler,
     UnauthorizedErrorHandler,
     ValidationErrorErrorHandler,
-} from './filter/exceptionHandler.filter';
-import { DefaultErrorFilter } from './filter/default.filter';
+} from './filter/common.filter';
+import {
+    UsernameOrPasswordExceptionHandler,
+    UserNotExistExceptionHandler,
+} from './filter/user.filter';
 
 @Configuration({
     imports: [
@@ -70,6 +74,8 @@ export class ContainerLifeCycle {
             ForbiddenErrorHandler,
             NotFoundErrorHandler,
             ValidationErrorErrorHandler,
+            UsernameOrPasswordExceptionHandler,
+            UserNotExistExceptionHandler,
         ]);
     }
 }
