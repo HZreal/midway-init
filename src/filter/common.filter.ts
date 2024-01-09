@@ -6,7 +6,19 @@ import { MidwayValidationError } from '@midwayjs/validate';
 import { Context } from '@midwayjs/koa';
 import { Catch } from '@midwayjs/decorator';
 import { failed } from '../common/response';
-import { UsernameOrPasswordException } from './customException';
+
+// any unknown error
+@Catch()
+export class DefaultErrorFilter {
+    async catch(err: Error, ctx: Context) {
+        // 所有的未分类错误会到这里
+        return {
+            code: 99999,
+            msg: err.message,
+            data: null,
+        };
+    }
+}
 
 // 400
 @Catch(httpError.BadRequestError)
@@ -65,16 +77,5 @@ export class ValidationErrorErrorHandler {
             msg: err.message,
         });
         return failed(9422, err.message);
-    }
-}
-
-@Catch(UsernameOrPasswordException)
-export class UsernameOrPasswordExceptionHandler {
-    async catch(err: MidwayHttpError, ctx: Context) {
-        console.log('error raised ! ====> ', {
-            code: err.code,
-            msg: err.message,
-        });
-        return { code: err.code, msg: err.message, data: null };
     }
 }

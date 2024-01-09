@@ -12,3 +12,12 @@ export class UsernameOrPasswordException extends MidwayHttpError {
         );
     }
 }
+
+export class UserNotExistException extends MidwayHttpError {
+    constructor() {
+        super(
+            responseStatusCode.UserNotExistsError.msg,
+            responseStatusCode.UserNotExistsError.code
+        );
+    }
+}
