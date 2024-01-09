@@ -5,6 +5,16 @@ import { NextFunction, Context } from '@midwayjs/koa';
 export class ReportMiddleware implements IMiddleware<Context, NextFunction> {
     resolve() {
         return async (ctx: Context, next: NextFunction) => {
+            // just print request info
+            console.log(
+                'request info ====>  ',
+                ctx.method +
+                    '  ' +
+                    ctx.path +
+                    '  ' +
+                    new Date().toTimeString().split(' ')[0]
+            );
+
             // 控制器前执行的逻辑
             const startTime = Date.now();
             // 执行下一个 Web 中间件，最后执行到控制器

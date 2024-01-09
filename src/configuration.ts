@@ -20,7 +20,8 @@ import {
     NotFoundErrorHandler,
     UnauthorizedErrorHandler,
     ValidationErrorErrorHandler,
-} from './common/exceptionHandler';
+} from './filter/exceptionHandler.filter';
+import { DefaultErrorFilter } from './filter/default.filter';
 
 @Configuration({
     imports: [
@@ -56,13 +57,14 @@ export class ContainerLifeCycle {
 
     async onReady() {
         // 注册中间件
-        this.app.useMiddleware([ReportMiddleware]);
+        this.app.useMiddleware(ReportMiddleware);
         // this.app.useMiddleware([JwtMiddleware, ReportMiddleware]);
         // 把中间件添加到名为 jwt 的中间件之后
         // this.app.getMiddleware().insertAfter(someMiddleware, 'jwt');
 
         // add filter
         this.app.useFilter([
+            DefaultErrorFilter, // 各种未知未定义错误处理器
             BadRequestErrorHandler,
             UnauthorizedErrorHandler,
             ForbiddenErrorHandler,
