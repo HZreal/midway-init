@@ -2,7 +2,7 @@ import { ALL, Controller, Fields, Get, Post } from '@midwayjs/core';
 import { ApiResponse } from '@midwayjs/swagger';
 import { CommonResponse } from '../interface';
 import { successWithData, successWithoutData } from '../common/response';
-import { userFormDTO } from '../dto/user.dto';
+import { UserFormDTO } from '../dto/user.dto';
 import { Validate } from '@midwayjs/validate';
 import { Inject } from '@midwayjs/decorator';
 import { SysService } from '../service/sys.service';
@@ -14,14 +14,14 @@ export class SysController {
     // 注册
     @Post('/register')
     @ApiResponse({})
-    async register(@Fields(ALL) form: userFormDTO): Promise<CommonResponse> {
+    async register(@Fields(ALL) form: UserFormDTO): Promise<CommonResponse> {
         await this.sysService.register(form);
         return successWithoutData();
     }
 
     @Post('/login')
     @Validate()
-    async login(@Fields() form: userFormDTO): Promise<CommonResponse> {
+    async login(@Fields() form: UserFormDTO): Promise<CommonResponse> {
         const result = await this.sysService.login(form);
         return successWithData(result);
     }
