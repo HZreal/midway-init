@@ -5,7 +5,7 @@ import { Rule, RuleType } from '@midwayjs/validate';
  * @author sizhong
  * @date 2023-06-16
  */
-export class userFormDTO {
+export class UserFormDTO {
     // 用户名
     @ApiProperty()
     @Rule(RuleType.string().required().alphanum().max(16).min(5))
@@ -17,8 +17,7 @@ export class userFormDTO {
     password: string;
 }
 
-// todo
-export class userCreateDTO {
+export class UserCreateDTO {
     // 用户名
     @ApiProperty()
     @Rule(RuleType.string().required().alphanum().max(16).min(5))
@@ -30,15 +29,33 @@ export class userCreateDTO {
     password: string;
 }
 
-// todo
-export class userUpdateDTO {
+export class UserUpdateBasicInfoDTO {
     // 用户名
     @ApiProperty()
-    @Rule(RuleType.string().required().alphanum().max(16).min(5))
+    @Rule(RuleType.string().optional())
     username: string;
+
+    // 邮箱
+    @ApiProperty()
+    @Rule(
+        RuleType.string()
+            .optional()
+            .pattern(/.*@.*\.com/)
+    )
+    email: string;
+}
+
+export class userUpdatePasswordDTO {
+    @Rule(RuleType.number().required())
+    id: number;
 
     // 密码
     @ApiProperty()
     @Rule(RuleType.string().required().max(16).min(6))
     password: string;
+
+    // 新密码
+    @ApiProperty()
+    @Rule(RuleType.string().required().max(16).min(6))
+    newPassword: string;
 }

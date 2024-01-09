@@ -41,7 +41,7 @@ export class pageSortDTO {
 /**
  * 删除实体模型
  */
-export class deleteEntityDTO {
+export class entityIdDTO {
     @Rule(RuleType.number().required())
     id: number;
 }

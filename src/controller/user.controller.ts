@@ -1,15 +1,15 @@
 import {
-    Inject,
-    Controller,
-    Get,
-    Query,
     ALL,
     Body,
+    Controller,
+    Get,
+    Inject,
     Post,
+    Query,
 } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { UserService } from '../service/user.service';
-import { deleteEntityDTO, pageSortDTO } from '../dto/common.dto';
+import { entityIdDTO, pageSortDTO } from '../dto/common.dto';
 import { ApiResponse } from '@midwayjs/swagger';
 import { Validate } from '@midwayjs/validate';
 import { CommonResponse } from '../interface';
@@ -18,10 +18,13 @@ import {
     successWithData,
     successWithoutData,
 } from '../common/response';
-import { getHash, hashCheck } from '../utils/_bcrypt';
 import * as _ from 'lodash';
 import { responseStatusCode } from '../constant/sysStatusCode';
-import { userCreateDTO } from '../dto/user.dto';
+import {
+    UserCreateDTO,
+    UserUpdateBasicInfoDTO,
+    userUpdatePasswordDTO,
+} from '../dto/user.dto';
 
 @Controller('/user')
 export class UserController {
@@ -33,105 +36,128 @@ export class UserController {
 
     // 获取所有
     @Get('/info/all')
-    async getAll() {
-        const pits = await this.userService.getAll();
-        return successWithData(pits);
+    @Validate()
+    @ApiResponse({})
+    async getAll(@Body() condition: any) {
+        try {
+            const entities = await this.userService.getAll(condition);
+            return successWithData(entities);
+        } catch (err) {
+            this.ctx.logger.error(err);
+            throw new Error(err);
+        }
     }
 
     // 获取列表
     @Post('/info/list')
     @Validate()
+    @ApiResponse({})
     // @ApiBearerAuth('token')
     async list(@Query(ALL) pageSort: pageSortDTO, @Body(ALL) condition: any) {
-        const data = await this.userService.getList(pageSort, condition);
-        data.data = _.map(data.data, item => _.omit(item, ['password']));
-
-        return successWithData(data);
+        try {
+            const data = await this.userService.getList(pageSort, condition);
+            return successWithData(data);
+        } catch (err) {
+            this.ctx.logger.error(err);
+            throw new Error(err);
+        }
     }
 
     // 创建
     @Post('/info/create')
     @Validate()
     @ApiResponse({})
-    async create(@Body(ALL) form: userCreateDTO): Promise<CommonResponse> {
-        const user = await this.userService.createEntity(form);
-
-        return successWithData(_.omit(user, ['password']));
+    async create(@Body(ALL) obj: UserCreateDTO): Promise<CommonResponse> {
+        try {
+            const user = await this.userService.createEntity(obj);
+            return successWithData(user);
+        } catch (err) {}
     }
 
     // 获取单个
     @Get('/info/detail')
+    @Validate()
     @ApiResponse({})
-    async detail(@Query('id') id: number): Promise<CommonResponse> {
-        const user = await this.userService.getEntity(id);
-        return successWithData(_.omit(user, ['password']));
+    async detail(@Query() body: entityIdDTO): Promise<CommonResponse> {
+        try {
+            const user = await this.userService.getEntity(body.id);
+            return successWithData(user);
+        } catch (err) {
+            this.ctx.logger.error(err);
+            throw new Error(err);
+        }
     }
 
-    // 修改
+    // 修改基本信息
     @Post('/info/update')
-    async modifyUserInfo(@Body(ALL) user: any): Promise<any> {
-        const result = await this.userService.update(
-            _.omit(user, ['username', 'password', 'isSuper'])
-        );
-
-        return successWithData(_.omit(result, ['password']));
+    @Validate()
+    @ApiResponse({})
+    async updateBasicInfo(
+        @Body(ALL) user: UserUpdateBasicInfoDTO
+    ): Promise<any> {
+        try {
+            const result = await this.userService.update(
+                _.omit(user, ['password', 'isSuper'])
+            );
+            return successWithData(_.omit(result, ['password']));
+        } catch (err) {
+            this.ctx.logger.error(err);
+            throw new Error(err);
+        }
     }
 
-    // 用户密码修改
+    // 密码修改
     @Post('/info/passwd/change')
-    async modifyPassword(
-        @Body(ALL) obj: { id: number; oldPassword: string; newPassword: string }
+    @Validate()
+    @ApiResponse({})
+    async updatePassword(
+        @Body(ALL) obj: userUpdatePasswordDTO
     ): Promise<CommonResponse> {
-        const { id, oldPassword, newPassword } = obj;
-
-        // 新老密码一样
-        if (_.toString(oldPassword) === _.toString(newPassword)) {
-            return failed(
-                responseStatusCode.UserPasswordNotChangeError.code,
-                responseStatusCode.UserPasswordNotChangeError.msg
-            );
+        try {
+            if (!this.ctx?.isSuper) {
+                // TODO
+                return failed(99111, 'is Not super admin');
+            }
+            if (obj.password === obj.newPassword) {
+                // 新老密码一样则直接退出
+                return failed(
+                    responseStatusCode.UserPasswordNotChangeError.code,
+                    responseStatusCode.UserPasswordNotChangeError.msg
+                );
+            }
+            await this.userService.updatePassword(obj);
+            return successWithoutData();
+        } catch (err) {
+            this.ctx.logger.error(err);
+            throw new Error(err);
         }
-
-        const user = await this.userService.findOneById(id);
-        // 没有找到用户
-        if (_.isEmpty(user)) {
-            return failed(
-                responseStatusCode.UserNotExistsError.code,
-                responseStatusCode.UserNotExistsError.msg
-            );
-        }
-        // 校验密码
-        if (!(await hashCheck(oldPassword, user.password))) {
-            // 密码错误
-            return failed(
-                responseStatusCode.UsernameOrPasswordError.code,
-                responseStatusCode.UsernameOrPasswordError.msg
-            );
-        }
-
-        await this.userService.update({
-            id: user.id,
-            password: await getHash(newPassword),
-        });
-
-        return successWithoutData();
     }
 
     // 密码重置
     @Post('/info/passwd/reset')
-    async resetPasswd(@Body('id') id: number) {
-        await this.userService.update({
-            id: id,
-            password: await getHash('123456'),
-        });
-
-        return successWithoutData();
+    @Validate()
+    @ApiResponse({})
+    async resetPassword(@Body() body: entityIdDTO) {
+        try {
+            await this.userService.resetPassword(body.id);
+            return successWithoutData();
+        } catch (err) {
+            this.ctx.logger.error(err);
+            throw new Error(err);
+        }
     }
 
     // 删除
     @Post('/info/delete')
-    async deleter(@Body() body: deleteEntityDTO) {
-        await this.userService.softRemoveById(body.id);
-        return successWithoutData();
+    @Validate()
+    @ApiResponse({})
+    async delete(@Body() body: entityIdDTO) {
+        try {
+            await this.userService.delete(body.id);
+            return successWithoutData();
+        } catch (err) {
+            this.ctx.logger.error(err);
+            throw new Error(err);
+        }
     }
 }

@@ -6,13 +6,21 @@ import { UserEntity } from '../entity/user.entity';
 import { pageSortDTO } from '../dto/common.dto';
 import { getHash, hashCheck } from '../utils/_bcrypt';
 import * as _ from 'lodash';
+import { userUpdatePasswordDTO } from '../dto/user.dto';
+import {
+    UsernameOrPasswordException,
+    UserNotExistException,
+} from '../filter/customException';
 
 @Provide()
 export class UserService extends BaseService {
     @InjectEntityModel(UserEntity)
     model: Repository<UserEntity>;
 
-    // 获取所有
+    /**
+     * 获取所有
+     * @param condition
+     */
     async getAll(condition = {}) {
         return await this.findByCondition({
             where: condition,
@@ -20,7 +28,11 @@ export class UserService extends BaseService {
         });
     }
 
-    // 获取列表
+    /**
+     * 获取列表
+     * @param pageSort
+     * @param condition
+     */
     async getList(pageSort: pageSortDTO, condition: any = {}) {
         const extra = {
             pagination: { page: pageSort.page, pageSize: pageSort.pageSize },
@@ -35,12 +47,16 @@ export class UserService extends BaseService {
             pageSize: pageSort.pageSize,
             totalPage: _.ceil(total / pageSort.pageSize),
             total: total,
-            data: entities,
+            data: _.map(entities, item => _.omit(item, ['password'])),
         };
     }
 
+    /**
+     * 获取单个实体
+     * @param id
+     */
     async getEntity(id: number) {
-        return await this.findOneByCondition({
+        const user = await this.findOneByCondition({
             where: { id: id },
             select: {
                 id: true,
@@ -51,55 +67,110 @@ export class UserService extends BaseService {
                 status: true,
             },
         });
+        return _.omit(user, ['password']);
     }
 
-    // 创建用户, 验证账号重复, hash 密码
-    async createEntity(form) {
+    /**
+     * 创建用户, 验证账号重复, hash 密码
+     * @param obj
+     */
+    async createEntity(obj) {
         // 检查用户名重复
-        const checkUniqUserName = await this.findByCondition({
+        const checkUniqUserName = await this.findOneByCondition({
             where: {
-                username: form.username,
+                username: obj.username,
             },
         });
         if (!_.isEmpty(checkUniqUserName)) {
             throw new Error('Existed User');
         }
 
-        const password = await getHash(form.password);
+        const password = await getHash(obj.password);
         const user = await this.singleCreate({
-            username: form.username,
+            username: obj.username,
             password: password,
         });
         if (_.isEmpty(user)) {
-            throw new Error('register error');
+            throw new Error('create user error');
         }
-        return user;
+        return _.omit(user, ['password']);
     }
 
-    // 校验密码
+    /**
+     *
+     * @param obj
+     */
+    async updatePassword(obj: userUpdatePasswordDTO) {
+        const user = await this.findOneById(obj.id);
+        // 没有找到用户
+        if (_.isEmpty(user)) {
+            this.ctx.logger.error('User update password, user not found');
+            throw new UserNotExistException();
+        }
+        // 校验密码
+        if (!(await hashCheck(obj.password, user.password))) {
+            // 密码错误
+            throw new UsernameOrPasswordException();
+        }
+
+        return await this.update({
+            id: user.id,
+            password: await getHash(obj.newPassword),
+        });
+    }
+
+    /**
+     *
+     * @param form
+     */
     async checkPassword(form) {
         const { username, password } = form;
         const user = await this.model.findOne({
             where: { username: username },
         });
         if (_.isEmpty(user)) {
-            throw new Error('username or password error');
+            throw new UserNotExistException();
         }
         const flag = await hashCheck(password, user.password);
         if (!flag) {
-            // TODO 需要全局异常捕获，并相应给前端
-            throw new Error('username or password error');
+            throw new UsernameOrPasswordException();
         }
         return user;
     }
 
-    // 删除
+    /**
+     *
+     * @param id
+     */
+    async resetPassword(id: number) {
+        await this.update({
+            id: id,
+            password: await getHash('123456'),
+        });
+    }
+
+    /**
+     *
+     * @param id
+     */
+    async delete(id: number) {
+        // 软删除
+        await this.softRemoveById(id);
+
+        // 硬删除
+        // await this.deleteEntity(id);
+    }
+
+    /**
+     *
+     * @param id
+     */
     async deleteEntity(id: number) {
         const res = await this.model.delete({ id: id });
 
         const affected = res.affected;
         if (affected === 0) {
-            throw new Error('delete error');
+            throw new Error('deleteEntity error');
         }
     }
 }
