@@ -53,9 +53,21 @@ $ open http://localhost:7001/
 
 ## 启用默认禁用的组件能力说明
 
-##### 启用redis、rabbtMQ、jwt
+##### 启用 redis、rabbtMQ、jwt
 
 只需直接修改 src 下的 configuration.ts 文件，取消注释即可
+
+##### 启用 mqtt
+
+取消注释 src/consumer/mqtt.consumer.ts、src/service/common/mqtt.service.ts
+
+##### 启用 bull
+
+...
+
+##### 启用 cron
+
+...
 
 
 
