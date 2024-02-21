@@ -71,7 +71,10 @@ export class UserController {
         try {
             const user = await this.userService.createEntity(obj);
             return successWithData(user);
-        } catch (err) {}
+        } catch (err) {
+            this.ctx.logger.error(err);
+            throw new Error(err);
+        }
     }
 
     // 获取单个

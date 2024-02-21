@@ -39,7 +39,7 @@ export class pageSortDTO {
 }
 
 /**
- * 删除实体模型
+ * 实体id模型
  */
 export class entityIdDTO {
     @Rule(RuleType.number().required())

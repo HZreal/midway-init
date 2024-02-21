@@ -7,8 +7,8 @@ import * as swagger from '@midwayjs/swagger';
 import * as orm from '@midwayjs/typeorm';
 import * as crossDomain from '@midwayjs/cross-domain';
 import * as upload from '@midwayjs/upload';
-import * as redis from '@midwayjs/redis';
-import * as rabbitmq from '@midwayjs/rabbitmq';
+// import * as redis from '@midwayjs/redis';
+// import * as rabbitmq from '@midwayjs/rabbitmq';
 // import * as bull from '@midwayjs/bull';
 // import * as cron from '@midwayjs/cron';
 // import * as jwt from '@midwayjs/jwt';
@@ -34,8 +34,6 @@ import {
         crossDomain,
         orm,
         upload,
-        redis,
-        rabbitmq,
         {
             component: info,
             enabledEnvironment: ['local'],
@@ -44,13 +42,14 @@ import {
             component: swagger,
             // enabledEnvironment: ['local'],
         },
+        // redis,
+        // rabbitmq,
         // jwt,
-        // 分布式任务管理系统，必须依赖 redis
-        // https://midwayjs.org/docs/extensions/bull
+
+        // 分布式任务管理系统，必须依赖 redis. doc: https://midwayjs.org/docs/extensions/bull
         // bull,
 
-        // cron 组件提供的是本地任务能力，即在每台机器的每个进程都会执行。如需不同机器或者不同进程之间只执行一次任务，请使用 bull 组件
-        // https://midwayjs.org/docs/extensions/cron
+        // cron 组件提供的是本地任务能力，即在每台机器的每个进程都会执行。如需不同机器或者不同进程之间只执行一次任务，请使用 bull 组件. https://midwayjs.org/docs/extensions/cron
         // cron,
     ],
     importConfigs: [join(__dirname, './config')],
