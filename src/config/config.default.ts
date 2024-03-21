@@ -1,6 +1,4 @@
 import { MidwayConfig } from '@midwayjs/core';
-import { pgModelDeclareEnum } from '../constant/modelDeclare.const';
-// import { uploadWhiteList } from '@midwayjs/upload';
 import { join } from 'path';
 import { tmpdir } from 'os';
 import * as path from 'path';
@@ -8,6 +6,8 @@ import * as path from 'path';
 export default {
     // use for cookie sign key, should change to your own and keep security
     keys: '1680592368107_8795',
+
+    //
     koa: {
         port: 7001,
     },
@@ -28,7 +28,7 @@ export default {
         expiresIn: '7 days', // https://github.com/vercel/ms
     },
 
-    // ...
+    // upload
     upload: {
         // mode: UploadMode, 默认为file，即上传到服务器临时目录，可以配置为 stream
         mode: 'stream',
@@ -95,7 +95,7 @@ export default {
                 // timezone: '+08:00', // 默认UTC
                 timezone: 'Z',
                 // 配置实体模型
-                entities: pgModelDeclareEnum,
+                entities: ['**/model/entity/*.entity{.ts,.js}'],
             },
         },
     },
