@@ -1,3 +1,3 @@
-import { UserEntity } from '../entity/user.entity';
+import { UserEntity } from '../model/entity/user.entity';
 
 export const pgModelDeclareEnum = [UserEntity];

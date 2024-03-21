@@ -2,11 +2,11 @@ import { Provide } from '@midwayjs/core';
 import { BaseService } from '../common/baseService';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from '../entity/user.entity';
-import { pageSortDTO } from '../dto/common.dto';
+import { UserEntity } from '../model/entity/user.entity';
+import { pageSortDTO } from '../model/dto/common.dto';
 import { getHash, hashCheck } from '../utils/_bcrypt';
 import * as _ from 'lodash';
-import { userUpdatePasswordDTO } from '../dto/user.dto';
+import { userUpdatePasswordDTO } from '../model/dto/user.dto';
 import {
     UsernameOrPasswordException,
     UserNotExistException,

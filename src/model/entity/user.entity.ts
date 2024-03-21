@@ -5,7 +5,7 @@
 import { Column } from 'typeorm';
 import { Entity } from 'typeorm';
 import { ApiProperty } from '@midwayjs/swagger';
-import { BaseEntity } from '../common/baseModel';
+import { BaseEntity } from '../../common/baseModel';
 
 @Entity('tb_user', { schema: 'public' })
 export class UserEntity extends BaseEntity {

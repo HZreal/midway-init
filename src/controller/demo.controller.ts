@@ -13,7 +13,7 @@ import {
     // sleep,
 } from '@midwayjs/core';
 import { Validate } from '@midwayjs/validate';
-import { pageSortDTO } from '../dto/common.dto';
+import { pageSortDTO } from '../model/dto/common.dto';
 import { ILogger } from '@midwayjs/logger';
 import * as fs from 'fs';
 import * as path from 'path';

@@ -9,7 +9,7 @@ import {
 } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { UserService } from '../service/user.service';
-import { entityIdDTO, pageSortDTO } from '../dto/common.dto';
+import { entityIdDTO, pageSortDTO } from '../model/dto/common.dto';
 import { ApiResponse } from '@midwayjs/swagger';
 import { Validate } from '@midwayjs/validate';
 import { CommonResponse } from '../interface';
@@ -24,7 +24,7 @@ import {
     UserCreateDTO,
     UserUpdateBasicInfoDTO,
     userUpdatePasswordDTO,
-} from '../dto/user.dto';
+} from '../model/dto/user.dto';
 
 @Controller('/user')
 export class UserController {

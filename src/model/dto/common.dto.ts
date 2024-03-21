@@ -1,6 +1,6 @@
 import { Rule, RuleType } from '@midwayjs/validate';
 import { ApiProperty } from '@midwayjs/swagger';
-import { pageSizeEnum } from '../constant/paginate.const';
+import { pageSizeEnum } from '../../constant/paginate.const';
 
 /**
  * @author sizhong

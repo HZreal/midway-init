@@ -2,7 +2,7 @@ import { ALL, Controller, Fields, Get, Post } from '@midwayjs/core';
 import { ApiResponse } from '@midwayjs/swagger';
 import { CommonResponse } from '../interface';
 import { successWithData, successWithoutData } from '../common/response';
-import { UserFormDTO } from '../dto/user.dto';
+import { UserFormDTO } from '../model/dto/user.dto';
 import { Validate } from '@midwayjs/validate';
 import { Inject } from '@midwayjs/decorator';
 import { SysService } from '../service/sys.service';
