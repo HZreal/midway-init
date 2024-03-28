@@ -42,6 +42,13 @@ export class UserEntity extends BaseEntity {
     })
     email: string;
 
+    // @Column({
+    //     type: 'enum',
+    //     enum: UserGenderEnum,
+    //     default: UserGenderEnum.Female,
+    // })
+    // gender: UserGenderEnum;
+
     // 状态
     @ApiProperty({ description: '状态' })
     @Column({
