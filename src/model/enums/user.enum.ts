@@ -9,6 +9,12 @@ export enum UserGenderEnum {
     Other = 3,
 }
 
+export enum UserRoleEnum {
+    USER = 'user',
+    ADMIN = 'admin',
+    BAN = 'ban',
+}
+
 export const UserGenderEnum2 = {
     Male: { value: 'M', text: 'Male' },
     Female: { value: 'F', text: 'Female' },
