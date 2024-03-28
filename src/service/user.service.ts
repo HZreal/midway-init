@@ -45,9 +45,9 @@ export class UserService extends BaseService {
         return {
             page: pageSort.page,
             pageSize: pageSort.pageSize,
-            totalPage: _.ceil(total / pageSort.pageSize),
+            pages: _.ceil(total / pageSort.pageSize),
             total: total,
-            data: _.map(entities, item => _.omit(item, ['password'])),
+            records: _.map(entities, item => _.omit(item, ['password'])),
         };
     }
 
