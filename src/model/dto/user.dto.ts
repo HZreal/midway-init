@@ -2,7 +2,7 @@ import { ApiProperty } from '@midwayjs/swagger';
 import { Rule, RuleType } from '@midwayjs/validate';
 
 /**
- * @author sizhong
+ * @author huang
  * @date 2023-06-16
  */
 export class UserFormDTO {
