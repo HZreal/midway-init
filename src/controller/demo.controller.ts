@@ -13,7 +13,7 @@ import {
     // sleep,
 } from '@midwayjs/core';
 import { Validate } from '@midwayjs/validate';
-import { pageSortDTO } from '../model/dto/common.dto';
+import { PageSortDTO } from '../model/dto/common.dto';
 import { ILogger } from '@midwayjs/logger';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -38,7 +38,7 @@ export class DemoController {
 
     @Get('/validate')
     @Validate()
-    async validate(@Query(ALL) query: pageSortDTO) {
+    async validate(@Query(ALL) query: PageSortDTO) {
         console.log('query;  ---->  ', query);
         return 'for test ';
     }

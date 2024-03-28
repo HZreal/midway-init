@@ -3,7 +3,7 @@ import { BaseService } from '../common/baseService';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../model/entity/user.entity';
-import { pageSortDTO } from '../model/dto/common.dto';
+import { PageSortDTO } from '../model/dto/common.dto';
 import { getHash, hashCheck } from '../utils/_bcrypt';
 import * as _ from 'lodash';
 import { userUpdatePasswordDTO } from '../model/dto/user.dto';
@@ -33,7 +33,7 @@ export class UserService extends BaseService {
      * @param pageSort
      * @param condition
      */
-    async getList(pageSort: pageSortDTO, condition: any = {}) {
+    async getList(pageSort: PageSortDTO, condition: any = {}) {
         const extra = {
             pagination: { page: pageSort.page, pageSize: pageSort.pageSize },
             order: await this.parseSortParams(pageSort.sort),

@@ -9,7 +9,7 @@ import {
 } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { UserService } from '../service/user.service';
-import { entityIdDTO, pageSortDTO } from '../model/dto/common.dto';
+import { entityIdDTO, PageSortDTO } from '../model/dto/common.dto';
 import { ApiResponse } from '@midwayjs/swagger';
 import { Validate } from '@midwayjs/validate';
 import { CommonResponse } from '../interface';
@@ -53,7 +53,7 @@ export class UserController {
     @Validate()
     @ApiResponse({})
     // @ApiBearerAuth('token')
-    async list(@Query(ALL) pageSort: pageSortDTO, @Body(ALL) condition: any) {
+    async list(@Query(ALL) pageSort: PageSortDTO, @Body(ALL) condition: any) {
         try {
             const data = await this.userService.getList(pageSort, condition);
             return successWithData(data);

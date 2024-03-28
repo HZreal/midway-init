@@ -1,22 +1,25 @@
+/**
+ * @author sizhong
+ * @date 2024-01-04
+ */
 import { Rule, RuleType } from '@midwayjs/validate';
 import { ApiProperty } from '@midwayjs/swagger';
 import { pageSizeEnum } from '../../constant/paginate.const';
 
 /**
- * @author sizhong
- * @date 2024-01-04
- */
-
-/**
  * 分页排序
  */
-export class pageSortDTO {
-    // 页号
+export class PageSortDTO {
+    /**
+     * 当前页号
+     */
     @Rule(RuleType.number().optional().min(1).max(1000000).default(1))
     @ApiProperty({ example: 1 })
     page?: number;
 
-    // 页大小
+    /**
+     * 页大小
+     */
     @Rule(
         RuleType.number()
             .optional()
@@ -26,7 +29,21 @@ export class pageSortDTO {
     @ApiProperty({ example: 10 })
     pageSize?: number;
 
-    // TODO 排序
+    /**
+     * 排序字段
+     */
+    @Rule(RuleType.string().optional())
+    @ApiProperty({ example: 'id' })
+    sortField?: string;
+
+    /**
+     * 排序顺序（默认升序）
+     */
+    @Rule(RuleType.string().optional().default('ASC'))
+    @ApiProperty({ example: 'ASC' })
+    sortOrder?: string;
+
+    // TODO 需删除，同时要修复 parseSortParams 函数（排序问题）
     @Rule(
         RuleType.string()
             .optional()
@@ -39,7 +56,7 @@ export class pageSortDTO {
 }
 
 /**
- * 实体id模型
+ * 实体 id 模型
  */
 export class entityIdDTO {
     @Rule(RuleType.number().required())
