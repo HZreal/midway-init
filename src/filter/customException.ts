@@ -1,6 +1,9 @@
-/*
-自定义异常
+/**
+ * 自定义异常
+ * @author huang
+ * @date 2023-06-16
  */
+
 import { MidwayHttpError } from '@midwayjs/core';
 import { responseStatusCode } from '../constant/sysStatusCode';
 

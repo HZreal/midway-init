@@ -1,3 +1,9 @@
+/**
+ * 消费者
+ * @author huang
+ * @date 2023-06-16
+ */
+
 import {
     Consumer,
     MSListenerType,

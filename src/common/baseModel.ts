@@ -1,3 +1,9 @@
+/**
+ * 模型基类
+ * @author huang
+ * @date 2023-06-16
+ */
+
 import {
     Column,
     CreateDateColumn,
@@ -6,9 +12,6 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
-/*
-模型基类
- */
 export class BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id', type: 'integer', comment: '主键id' })
     id: number;

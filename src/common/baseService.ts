@@ -1,11 +1,14 @@
+/**
+ * 服务基类
+ * @author huang
+ * @date 2023-06-16
+ */
+
 import * as _ from 'lodash';
 import { In, Repository } from 'typeorm';
 import { Inject } from '@midwayjs/decorator';
 import { Context } from '@midwayjs/koa';
 
-/*
-服务基类
- */
 export class BaseService {
     model: Repository<any>;
 

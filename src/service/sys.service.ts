@@ -1,3 +1,9 @@
+/**
+ * SysService
+ * @author huang
+ * @date 2023-05-26
+ */
+
 import { Config, Provide } from '@midwayjs/core';
 import { UserService } from './user.service';
 import { Inject } from '@midwayjs/decorator';

@@ -1,3 +1,9 @@
+/**
+ * Report middleware
+ * @author huang
+ * @date 2024-01-09
+ */
+
 import { Middleware, IMiddleware } from '@midwayjs/core';
 import { NextFunction, Context } from '@midwayjs/koa';
 

@@ -1,10 +1,12 @@
+/**
+ * User DTO
+ * @author huang
+ * @date 2024-01-04
+ */
+
 import { ApiProperty } from '@midwayjs/swagger';
 import { Rule, RuleType } from '@midwayjs/validate';
 
-/**
- * @author huang
- * @date 2023-06-16
- */
 export class UserFormDTO {
     // 用户名
     @ApiProperty()

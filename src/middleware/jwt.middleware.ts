@@ -1,3 +1,9 @@
+/**
+ * JWT middleware
+ * @author huang
+ * @date 2024-01-09
+ */
+
 import { Inject, Middleware } from '@midwayjs/decorator';
 import { Context, NextFunction } from '@midwayjs/koa';
 import { Config, httpError } from '@midwayjs/core';

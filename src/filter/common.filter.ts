@@ -1,6 +1,9 @@
-/*
+/**
  * 捕获自定义异常
- * */
+ * @author huang
+ * @date 2023-06-16
+ */
+
 import { httpError, MidwayHttpError } from '@midwayjs/core';
 import { MidwayValidationError } from '@midwayjs/validate';
 import { Context } from '@midwayjs/koa';

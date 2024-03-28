@@ -1,3 +1,9 @@
+/**
+ * SysController
+ * @author huang
+ * @date 2023-06-16
+ */
+
 import { ALL, Controller, Fields, Get, Post } from '@midwayjs/core';
 import { ApiResponse } from '@midwayjs/swagger';
 import { CommonResponse } from '../interface';

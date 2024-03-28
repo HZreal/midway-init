@@ -1,3 +1,9 @@
+/**
+ * 自定义状态码
+ * @author huang
+ * @date 2023-06-16
+ */
+
 export const responseStatusCode = {
     OK: { code: 0, msg: 'success' },
 

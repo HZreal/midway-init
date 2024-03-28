@@ -2,6 +2,7 @@
  * @author huang
  * @date 2024-01-04
  */
+
 export const xxxTask = {
     exchange: {
         name: 'project_name.xxxTask.exchange',

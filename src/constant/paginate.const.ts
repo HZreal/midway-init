@@ -1,3 +1,9 @@
+/**
+ * 分页
+ * @author huang
+ * @date 2023-06-16
+ */
+
 export const pageSizeEnum = [10, 20, 30, 50, 100];
 
 export enum SortOrderEnum {

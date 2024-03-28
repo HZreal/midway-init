@@ -1,7 +1,9 @@
 /**
+ * User Entity
  * @author huang
  * @date 2023-05-26
  */
+
 import { Column } from 'typeorm';
 import { Entity } from 'typeorm';
 import { ApiProperty } from '@midwayjs/swagger';

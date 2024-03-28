@@ -1,3 +1,9 @@
+/**
+ * UserService
+ * @author huang
+ * @date 2023-05-26
+ */
+
 import { Provide } from '@midwayjs/core';
 import { BaseService } from '../common/baseService';
 import { InjectEntityModel } from '@midwayjs/typeorm';
