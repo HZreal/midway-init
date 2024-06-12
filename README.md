@@ -20,12 +20,15 @@
 - 展示应用基本信息info
 - upload上传
 - typeorm
-- Redis（默认禁用）
-- RabbitMQ（默认禁用）
-- MQTT（默认禁用）
-- JWT（默认禁用）
-- bull（默认禁用）
-- cron（默认禁用）
+- Redis
+- RabbitMQ
+- MQTT
+- JWT
+- bull
+- cron
+- socketIO
+- codeDye
+- telemetry
 
 
 
