@@ -23,6 +23,7 @@ import { PageSortDTO } from '../model/dto/common.dto';
 import { ILogger } from '@midwayjs/logger';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as bull from '@midwayjs/bull';
 
 @Controller('/demo')
 export class DemoController {
@@ -41,6 +42,9 @@ export class DemoController {
 
     @Logger('httpLogger')
     httpLogger: ILogger;
+
+    @Inject()
+    bullFramework: bull.Framework;
 
     @Get('/validate')
     @Validate()
@@ -168,5 +172,24 @@ export class DemoController {
         this.ctx.set('Content-Type', 'video/mp4');
         const videoStream = fs.createReadStream(videoPath, { start, end });
         return videoStream;
+    }
+
+    /**
+     * 执行 bull
+     */
+    @Get('/bull')
+    async onServerReady() {
+        // 获取 Processor 相关的队列
+        const testQueue = this.bullFramework.getQueue('test');
+        // 立即执行这个任务
+        const job = await testQueue?.runJob({ a: 1, b: 'test' });
+        // 更新进度
+        await job.progress(60);
+        // 获取进度
+        // const progress = await job.process();
+        // => 60
+        // const state = await job.getState();
+        // state => 'delayed' 延迟状态
+        // state => 'completed' 完成状态
     }
 }
