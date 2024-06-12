@@ -12,6 +12,12 @@ export default {
         port: 7001,
     },
 
+    // socketIO
+    socketIO: {
+        // port: 7001,
+        transports: ['websocket'],
+    },
+
     // 根目录
     baseDir: path.resolve('./'),
 
