@@ -217,4 +217,11 @@ export class DemoController {
         console.log('syncJob  ---->  ', syncJob);
         console.log('syncJob2  ---->  ', syncJob2);
     }
+
+    @Get('/codeDye')
+    async codeDye(@Query(ALL) query: any) {
+        // 浏览器请求：http://127.0.0.1:7001/demo/codeDye?codeDyeXXX=html
+        console.log('query  ---->  ', query);
+        return query;
+    }
 }

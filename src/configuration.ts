@@ -14,6 +14,7 @@ import * as jwt from '@midwayjs/jwt';
 import { JwtMiddleware } from './middleware/jwt.middleware';
 import { ReportMiddleware } from './middleware/report.middleware';
 import * as socketio from '@midwayjs/socketio';
+import * as codeDye from '@midwayjs/code-dye';
 
 import {
     BadRequestErrorHandler,
@@ -62,6 +63,12 @@ import * as path from 'path';
 
         //
         socketio,
+
+        //
+        {
+            component: codeDye,
+            enabledEnvironment: ['local', 'dev'], // 只在本地启用
+        },
     ],
     importConfigs: [path.join(__dirname, './config')],
 })

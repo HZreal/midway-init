@@ -190,4 +190,10 @@ export default {
         password: '0qJ7LauxxRKmFQad',
         reconnectPeriod: 1000,
     },
+
+    //
+    codeDye: {
+        matchQueryKey: 'codeDyeXXX',
+        // matchHeaderKey: 'codeDyeHeader',
+    },
 } as MidwayConfig;
