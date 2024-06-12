@@ -70,9 +70,15 @@ export default {
                 },
                 // ...
             },
+
             mqLogger: {
                 fileLogName: 'mq.log',
                 // ...
+            },
+
+            // cron
+            cronLogger: {
+                fileLogName: 'midway-cron.log',
             },
         },
     },

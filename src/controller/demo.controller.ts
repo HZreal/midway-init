@@ -24,6 +24,9 @@ import { ILogger } from '@midwayjs/logger';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as bull from '@midwayjs/bull';
+import { InjectJob, CronJob } from '@midwayjs/cron';
+import { DataSyncCheckerJob } from '../job/sync.job';
+import * as cron from '@midwayjs/cron';
 
 @Controller('/demo')
 export class DemoController {
@@ -45,6 +48,16 @@ export class DemoController {
 
     @Inject()
     bullFramework: bull.Framework;
+
+    // 通过@InjectJob 用来注入某个任务，参数为类本身或者任务名。
+    @InjectJob(DataSyncCheckerJob)
+    syncJob: CronJob;
+
+    @InjectJob('syncJob')
+    syncJob2: CronJob;
+
+    @Inject()
+    cronFramework: cron.Framework;
 
     @Get('/validate')
     @Validate()
@@ -191,5 +204,17 @@ export class DemoController {
         // const state = await job.getState();
         // state => 'delayed' 延迟状态
         // state => 'completed' 完成状态
+    }
+
+    @Get('/cron')
+    async cronJob() {
+        console.log('this.syncJob  ---->  ', this.syncJob);
+        console.log('this.syncJob2  ---->  ', this.syncJob2);
+
+        //
+        const syncJob = this.cronFramework.getJob(DataSyncCheckerJob);
+        const syncJob2 = this.cronFramework.getJob('syncJob');
+        console.log('syncJob  ---->  ', syncJob);
+        console.log('syncJob2  ---->  ', syncJob2);
     }
 }
